@@ -1,0 +1,25 @@
+version: '3.5'
+services:
+
+  joesview:
+    image: joesview
+    container_name: joesview
+    build:
+      context: .
+      dockerfile: ./src/joesview/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://*:5000
+
+      - JVIEW_Github:Repositories:0=CKOTech/checkout-3ds2-libs
+      - JVIEW_Github:Repositories:1=CKOTech/checkout-3ds2-infrastructure
+      - JVIEW_Github:Repositories:2=CKOTech/checkout-3ds2-authentication
+      - JVIEW_Github:Repositories:3=CKOTech/checkout-3ds2-docs
+      - JVIEW_Github:Repositories:4=CKOTech/checkout-3ds2-admin
+      - JVIEW_Github:Repositories:5=CKOTech/checkout-3ds2-interceptor
+      - JVIEW_Github:Repositories:6=CKOTech/checkout-3ds2-expirer
+      - JVIEW_Github:Repositories:7=CKOTech/checkout-3ds2-authentication-sdk
+      - JVIEW_Github:Repositories:8=CKOTech/checkout-3ds2-account-range
+
+      - JVIEW_Github:Token=74ca5f156da92284ba45686110b088bc53dfef22
+    ports:
+      - "1001:5000"

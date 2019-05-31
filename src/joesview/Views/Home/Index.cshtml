@@ -1,0 +1,34 @@
+﻿@model joesview.Models.HomeViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>List of all open PRs for 3DS2.</p>
+</div>
+
+@foreach (var pr in Model.PRs)
+{
+    <div>
+        <p>
+            <a href="@pr.RepoUrl">@pr.Repo</a> / <a href="@pr.Url">@pr.Title</a> <img width="25px" src="@pr.User.AvatarUrl" alt="@pr.User.Login" title="@pr.User.Login" />
+            <br>
+            @if (pr.HasApprovals)
+            {
+                <span>Approvals:</span>
+                @foreach (var review in pr.Reviews.Where(x => x.State == "APPROVED"))
+                {
+                    <span><img width="25px" src="@review.User.AvatarUrl" alt="@review.User.Login" title="@review.User.Login" /></span>
+                }
+            }
+            else
+            {
+                <span>Pending approvals</span>
+            }
+            <br>
+            @pr.Body
+        </p>
+    </div>
+}
