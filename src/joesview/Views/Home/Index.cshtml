@@ -28,7 +28,13 @@
                 <span>Pending approvals</span>
             }
             <br>
-            @pr.Body
+            @foreach (var item in pr.Body.Split(Environment.NewLine).ToList())
+            {
+                @if (!string.IsNullOrWhiteSpace(item))
+                {
+                    <markdown style="margin-left: 50px">@item</markdown>
+                }
+            }
         </p>
     </div>
 }
