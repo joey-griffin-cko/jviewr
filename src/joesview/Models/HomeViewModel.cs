@@ -9,6 +9,25 @@ namespace joesview.Models
     public class HomeViewModel
     {
         public IEnumerable<GitThing> PRs { get; set; } = new List<GitThing>();
+        public IEnumerable<SprintTask> Issues { get; set; }
+    }
+
+    public class SprintTask
+    {
+        public string Key { get; set; }
+        public string Url => $"https://checkout.atlassian.net/browse/{Key}";
+        public JiraField Fields { get; set; }
+    }
+
+    public class JiraField
+    {
+        public JiraStatus Status { get; set; }
+        public string Summary { get; set; }
+    }
+
+    public class JiraStatus
+    {
+        public string Name { get; set; }
     }
 
     public class GitThing

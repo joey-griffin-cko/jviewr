@@ -32,33 +32,45 @@
     }
 </style>
 
-@foreach (var pr in Model.PRs)
-{
-    <div .image-txt-container>
-        <img width="40px" height="40px" src="@pr.User.AvatarUrl" alt="@pr.User.Login" title="@pr.User.Login" class="pr-avatar"/>
-        <p>
-            <a href="@pr.RepoUrl">@pr.Repo</a> / <a href="@pr.Url">@pr.Title</a>
-            <br>
-            @if (pr.HasApprovals)
-            {
-                <span>Approvals:</span>
-                @foreach (var review in pr.Reviews.Where(x => x.State == "APPROVED"))
-                {
-                    <span><img src="@review.User.AvatarUrl" alt="@review.User.Login" title="@review.User.Login" class="rounded-avatar"/></span>
-                }
-            }
-            else
-            {
-                <span>Pending approvals</span>
-            }
-            <br>
-            @foreach (var item in pr.Body.Split(Environment.NewLine).ToList())
-            {
-                @if (!string.IsNullOrWhiteSpace(item))
-                {
-                    <markdown style="margin-left: 50px">@item</markdown>
-                }
-            }
-        </p>
+<div class="row">
+    <div class="col-sm-6">
+        @foreach (var pr in Model.PRs)
+        {
+            <div .image-txt-container>
+                <img width="40px" height="40px" src="@pr.User.AvatarUrl" alt="@pr.User.Login" title="@pr.User.Login" class="pr-avatar"/>
+                <p>
+                    <a href="@pr.RepoUrl">@pr.Repo</a> / <a href="@pr.Url">@pr.Title</a>
+                    <br>
+                    @if (pr.HasApprovals)
+                    {
+                        <span>Approvals:</span>
+                        @foreach (var review in pr.Reviews.Where(x => x.State == "APPROVED"))
+                        {
+                            <span><img src="@review.User.AvatarUrl" alt="@review.User.Login" title="@review.User.Login" class="rounded-avatar"/></span>
+                        }
+                    }
+                    else
+                    {
+                        <span>Pending approvals</span>
+                    }
+                    <br>
+                    @foreach (var item in pr.Body.Split(Environment.NewLine).ToList())
+                    {
+                        @if (!string.IsNullOrWhiteSpace(item))
+                        {
+                            <markdown style="margin-left: 50px">@item</markdown>
+                        }
+                    }
+                </p>
+            </div>
+        }
     </div>
-}
+    <div class="col-sm-6">
+        @foreach (var issue in Model.Issues)
+        {
+            <div>
+                <p>[@issue.Fields.Status.Name] <a href="@issue.Url">@issue.Key / @issue.Fields.Summary</a></p>
+            </div>
+        }
+    </div>
+</div>

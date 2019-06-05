@@ -21,7 +21,8 @@ namespace joesview.Controllers
         {
             var vm = new HomeViewModel
             {
-                PRs = await GetPRsAsync()
+                PRs = await GetPRsAsync(),
+                Issues = await GetSprintTaskAsync()
             };
 
             return View(vm);
@@ -98,6 +99,31 @@ namespace joesview.Controllers
             }
 
             return allPrs.Distinct().OrderBy(x => x.Repo);
+        }
+
+        private async Task<IEnumerable<SprintTask>> GetSprintTaskAsync()
+        {
+            var client = new HttpClient();
+
+            client.DefaultRequestHeaders.Add("Authorization", $"Basic am9leS5ncmlmZmluQGNoZWNrb3V0LmNvbTpBQUpKYWhGeWFZalNXMzFBM1lTV0I1RkE=");
+            client.DefaultRequestHeaders.Add("Accept", $"application/json");
+            client.DefaultRequestHeaders.Add("User-Agent", $"PostmanRuntime/7.13.0");
+            client.DefaultRequestHeaders.Add("Cache-Control", $"no-cache");
+            client.DefaultRequestHeaders.Add("Postman-Token", $"f616a897-2e99-46d2-8ef9-6f6dab85e22f");
+            client.DefaultRequestHeaders.Add("Host", $"checkout.atlassian.net");
+            client.DefaultRequestHeaders.Add("Connection", $"keep-alive");
+
+            var response = await client.GetAsync($"https://checkout.atlassian.net/rest/agile/1.0/sprint/487/issue?fields=status,summary");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var res = JsonConvert.DeserializeObject<JiraResponse>(content);
+
+                return res.Issues.OrderBy(x => x.Fields.Status.Name);
+            }
+
+            return null;
         }
     }
 }
