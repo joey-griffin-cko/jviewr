@@ -9,18 +9,42 @@
     <p>List of all open PRs for 3DS2.</p>
 </div>
 
+<style>
+    .rounded-avatar {
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+    }
+
+    .pr-avatar {
+        border-radius: 15%;
+        float : left;
+        margin-right: 10px;
+        margin-top: 5px;
+        width: 38px;
+        height: 38px;
+    }
+    
+    .image-txt-container {
+        display:flex;
+        align-items:center;
+        flex-direction: row;
+    }
+</style>
+
 @foreach (var pr in Model.PRs)
 {
-    <div>
+    <div .image-txt-container>
+        <img width="40px" height="40px" src="@pr.User.AvatarUrl" alt="@pr.User.Login" title="@pr.User.Login" class="pr-avatar"/>
         <p>
-            <a href="@pr.RepoUrl">@pr.Repo</a> / <a href="@pr.Url">@pr.Title</a> <img width="25px" src="@pr.User.AvatarUrl" alt="@pr.User.Login" title="@pr.User.Login" />
+            <a href="@pr.RepoUrl">@pr.Repo</a> / <a href="@pr.Url">@pr.Title</a>
             <br>
             @if (pr.HasApprovals)
             {
                 <span>Approvals:</span>
                 @foreach (var review in pr.Reviews.Where(x => x.State == "APPROVED"))
                 {
-                    <span><img width="25px" src="@review.User.AvatarUrl" alt="@review.User.Login" title="@review.User.Login" /></span>
+                    <span><img src="@review.User.AvatarUrl" alt="@review.User.Login" title="@review.User.Login" class="rounded-avatar"/></span>
                 }
             }
             else
