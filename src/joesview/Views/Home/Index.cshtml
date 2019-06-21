@@ -3,12 +3,6 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>List of all open PRs for 3DS2.</p>
-</div>
-
 <style>
     .rounded-avatar {
         border-radius: 50%;
@@ -20,7 +14,6 @@
         border-radius: 15%;
         float : left;
         margin-right: 10px;
-        margin-top: 5px;
         width: 38px;
         height: 38px;
     }
@@ -30,16 +23,76 @@
         align-items:center;
         flex-direction: row;
     }
+
+    .mb-3 {
+        margin-bottom: 16px!important;
+    }
+
+    .no-mb {
+        margin-bottom: 0px!important;
+    }
+
+    .box-title {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .box-header {
+        background-color: #f6f8fa;
+        border: 1px solid #d1d5da;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        margin: -1px -1px 0;
+        padding: 8px 16px;    
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+
+    .box-item {
+        padding: 0px 8px;
+    }
+
+    .Box {
+        background-color: #fff;
+        border: 1px solid #d1d5da;
+        border-radius: 3px;
+    }
+    
+    .Box-row {
+        border-top: 1px solid #e1e4e8;
+        list-style-type: none;
+        margin-top: -1px;
+    }
+
+    .pr-title{
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .Box--condensed {
+        line-height: 1.25;
+    }
 </style>
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>List of all open PRs for 3DS2.</p>
+</div>
 
 <div class="row">
-    <div class="col-sm-6">
-        @foreach (var pr in Model.PRs)
+    <div class="col-sm-6" >
+
+        @foreach (var group in Model.PRs)
         {
-            <div .image-txt-container>
+            var currentRepo = group.First().Repo;
+            <div class="Box mb-3">
+            <div class="Box--condensed box-header box-title"><a href="@currentRepo">@group.Key</a></div>
+            <ul class="no-mb box-item">
+            @foreach (var pr in group)
+            {
+                <li class="image-txt-container Box-row">
                 <img width="40px" height="40px" src="@pr.User.AvatarUrl" alt="@pr.User.Login" title="@pr.User.Login" class="pr-avatar"/>
-                <p>
-                    <a href="@pr.RepoUrl">@pr.Repo</a> / <a href="@pr.Url">@pr.Title</a>
+                <p class="pr-title">
+                    <a href="@pr.Url">@pr.Title</a>
                     <br>
                     @if (pr.HasApprovals)
                     {
@@ -54,22 +107,29 @@
                         <span>Pending approvals</span>
                     }
                     <br>
-                    @foreach (var item in pr.Body.Split(Environment.NewLine).ToList())
-                    {
-                        @if (!string.IsNullOrWhiteSpace(item))
-                        {
-                            <markdown style="margin-left: 50px">@item</markdown>
-                        }
-                    }
                 </p>
+                </li>
+            }
+            </ul>
             </div>
         }
     </div>
     <div class="col-sm-6">
-        @foreach (var issue in Model.Issues)
+        @foreach (var group in Model.Issues)
         {
-            <div>
-                <p>[@issue.Fields.Status.Name] <a href="@issue.Url">@issue.Key / @issue.Fields.Summary</a></p>
+            <div class="Box mb-3">
+            <div class="Box--condensed box-header box-title">@group.Key</div>
+            <ul class="no-mb box-item">
+            @foreach (var pr in group)
+            {
+                <li class="image-txt-container Box-row">
+                <p class="pr-title">
+                    <a href="@pr.Url">@pr.Key / @pr.Fields.Summary </a>
+                    <br>
+                </p>
+                </li>
+            }
+            </ul>
             </div>
         }
     </div>

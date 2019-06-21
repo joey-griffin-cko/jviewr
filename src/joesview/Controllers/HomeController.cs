@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using joesview.Models;
@@ -28,7 +28,7 @@ namespace joesview.Controllers
             return View(vm);
         }
 
-        private async Task<IEnumerable<GitThing>> GetPRsAsync()
+        private async Task<IEnumerable<IGrouping<string,GitThing>>> GetPRsAsync()
         {
             var client = new HttpClient();
 
@@ -98,10 +98,10 @@ namespace joesview.Controllers
 
             }
 
-            return allPrs.Distinct().OrderBy(x => x.Repo);
+            return allPrs.GroupBy(x => x.Repo);
         }
 
-        private async Task<IEnumerable<SprintTask>> GetSprintTaskAsync()
+        private async Task<IEnumerable<IGrouping<string,SprintTask>>> GetSprintTaskAsync()
         {
             var client = new HttpClient();
 
@@ -120,7 +120,7 @@ namespace joesview.Controllers
                 var content = await response.Content.ReadAsStringAsync();
                 var res = JsonConvert.DeserializeObject<JiraResponse>(content);
 
-                return res.Issues.OrderBy(x => x.Fields.Status.Name);
+                return res.Issues.OrderBy(x => x.Fields.Status.Name).GroupBy(x => x.Fields.Status.Name);
             }
 
             return null;

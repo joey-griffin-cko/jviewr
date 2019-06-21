@@ -8,8 +8,8 @@ namespace joesview.Models
 {
     public class HomeViewModel
     {
-        public IEnumerable<GitThing> PRs { get; set; } = new List<GitThing>();
-        public IEnumerable<SprintTask> Issues { get; set; }
+        public IEnumerable<IGrouping<string, GitThing>> PRs { get; set; } = new List<IGrouping<string, GitThing>>();
+        public IEnumerable<IGrouping<string, SprintTask>> Issues { get; set; } = new List<IGrouping<string, SprintTask>>();
     }
 
     public class SprintTask
