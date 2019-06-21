@@ -113,7 +113,7 @@ namespace joesview.Controllers
             client.DefaultRequestHeaders.Add("Host", $"checkout.atlassian.net");
             client.DefaultRequestHeaders.Add("Connection", $"keep-alive");
 
-            var response = await client.GetAsync($"https://checkout.atlassian.net/rest/agile/1.0/sprint/487/issue?fields=status,summary");
+            var response = await client.GetAsync($"https://checkout.atlassian.net/rest/agile/1.0/sprint/501/issue?fields=status,summary");
 
             if (response.IsSuccessStatusCode)
             {
