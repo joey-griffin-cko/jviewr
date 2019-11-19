@@ -1,0 +1,109 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.no-border {
+  border: 0 !important;
+}
+.rounded-avatar {
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  margin-right: 3px;
+}
+
+.pr-avatar {
+  border-radius: 15%;
+  float : left;
+  margin-right: 10px;
+  margin-bottom: 8px;
+  width: 38px;
+  height: 38px;
+}
+
+.image-txt-container {
+  display:flex;
+  flex-direction: column;
+}
+
+.jira-task-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.jira-epic-fix {
+  margin-top: -2px;
+  margin-bottom: 8px;
+}
+
+.smaller-text {
+  font-size: smaller;
+}
+
+.github-text {
+  margin-top: -2px;
+  float: left;
+}
+
+.no-fix {
+  color: silver;
+}
+
+.mb-3 {
+  margin-bottom: 16px!important;
+}
+
+.no-mb {
+  margin-bottom: 0px!important;
+}
+
+.box-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.box-header {
+  background-color: #f6f8fa;
+  border: 1px solid #d1d5da;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  margin: -1px -1px 0;
+  padding: 8px 16px;    
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.box-item {
+  padding: 0px 8px;
+}
+
+.Box {
+  background-color: #fff;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
+}
+
+.Box-row {
+  border-top: 1px solid #e1e4e8;
+  list-style-type: none;
+  margin-top: -1px;
+}
+
+.pr-title{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.Box--condensed {
+  line-height: 1.25;
+}
