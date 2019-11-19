@@ -45,6 +45,7 @@ namespace api.Controllers
         public async Task<IActionResult> GetAsync()
         {
             var prs = await GetPRsAsync();
+            
             _dataService.SetGithubTokenValidity(prs != null);
 
             if (prs == null)

@@ -47,6 +47,7 @@ namespace api.Controllers
         public async Task<IActionResult> GetAsync()
         {
             var tickets = await GetSprintTaskAsync();
+
             _dataService.SetJiraTokenValidity(tickets != null);
 
             if (tickets == null)

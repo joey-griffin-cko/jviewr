@@ -34,7 +34,9 @@ export class JiraPanel extends React.Component<JiraPanelProps, JiraPanelState> {
             if (response.status === 200)
                 return response.json();
 
-            throw new Error('getJiraTask did not return 200.');
+            this.setState({
+                canViewData: false
+            }, () => { throw new Error('getJiraTask did not return 200.') })
         })
             .then((response) => {
                 this.setState({ tasks: response })

@@ -40,7 +40,9 @@ export class GithubPanel extends React.Component<GithubPanelProps, GithubPanelSt
             if (response.status === 200)
                 return response.json();
 
-            throw new Error('getOpenPRs did not return 200.');
+            this.setState({
+                canViewData: false
+            }, () => { throw new Error('getOpenPRs did not return 200.') })
         })
             .then((response) => {
                 this.setState({ openPRs: response })
