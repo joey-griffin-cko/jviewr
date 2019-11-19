@@ -19,7 +19,7 @@ export class JiraGroup extends React.Component<JiraGroupProps, JiraGroupState> {
 
                         let assignee = <div></div>
                         if (task.fields.assignee)
-                            assignee = <img width="40px" height="40px" src={task.fields.assignee.avatarUrls['48x48']} title={task.fields.assignee.displayName} className="pr-avatar" />
+                            assignee = <img width="40px" height="40px" src={task.fields.assignee.avatarUrls['48x48']} title={task.fields.assignee.displayName} alt="" className="pr-avatar" />
 
                         let epicLabel = <span className="no-fix">no epic</span>
                         if (task.fields.epic)
@@ -39,7 +39,7 @@ export class JiraGroup extends React.Component<JiraGroupProps, JiraGroupState> {
                         return (
                             <li key={i} className="jira-task-container Box-row">
                                 <p className="pr-title">
-                                    <img src={task.fields.issueType.iconUrl} title={task.fields.issueType.name} /> [{storyPoints}] <a href={task.url}>{task.key} / {task.fields.summary}</a>
+                                    <img src={task.fields.issueType.iconUrl} title={task.fields.issueType.name} alt="" /> [{storyPoints}] <a href={task.url}>{task.key} / {task.fields.summary}</a>
                                 </p>
                                 <div>
                                     {assignee}
