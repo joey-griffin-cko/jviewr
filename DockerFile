@@ -28,7 +28,6 @@ WORKDIR /
 RUN dos2unix docker_entrypoint.sh
 RUN chmod +x docker_entrypoint.sh
 
-EXPOSE 9340
-EXPOSE 9341
+EXPOSE 9341 3000
 
 CMD ["./docker_entrypoint.sh"]

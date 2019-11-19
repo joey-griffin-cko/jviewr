@@ -8,5 +8,5 @@ services:
       context: .
       dockerfile: ./DockerFile
     ports:
-      - "9340:9340"
+      - "9340:3000"
       - "9341:9341"
