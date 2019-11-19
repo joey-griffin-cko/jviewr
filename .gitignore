@@ -1,2 +1,4 @@
-src/*/bin
-src/*/obj
+src/api/bin
+src/api/obj
+
+src/api/appsettings.Develop*
