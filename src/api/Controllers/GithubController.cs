@@ -45,7 +45,7 @@ namespace api.Controllers
         public async Task<IActionResult> GetAsync()
         {
             var prs = await GetPRsAsync();
-            
+
             _dataService.SetGithubTokenValidity(prs != null);
 
             if (prs == null)
@@ -93,13 +93,20 @@ namespace api.Controllers
                     "CKOTech/checkout-3ds2-simulator",
                     "CKOTech/checkout-3ds2-couchbase",
                     "CKOTech/checkout-3ds2-certification",
+                    "CKOTech/checkout-3ds2-acceptance",
                     "CKOTech/checkout-acquiring-es",
                     "CKOTech/checkout-acquiring-sqs",
                     "CKOTech/checkout-acquiring-s3",
                     "CKOTech/checkout-acquiring-bootstrap",
+                    "CKOTech/checkout-acquiring-dynamodb",
+                    "CKOTech/checkout-acquiring-cake",
                     "CKOTech/checkout-nt-encryption",
                     "CKOTech/checkout-nt-simulator",
-                    "CKOTech/checkout-nt-docs"
+                    "CKOTech/checkout-nt-docs",
+                    "CKOTech/checkout-nt-encryption",
+                    "CKOTech/checkout-nt-onboarding",
+                    "CKOTech/checkout-nt-acceptance",
+                    "CKOTech/checkout-nt-infrastructure"
                 };
 
                 async Task<(HttpResponseMessage Response, string Repo)> GetRepos(string repo)
@@ -140,7 +147,7 @@ namespace api.Controllers
                     }
                 }
 
-                var repoTasks = repos.Select(repo => GetRepos(repo));
+                var repoTasks = repos.Distinct().Select(repo => GetRepos(repo));
 
                 var prTasks = repoTasks.Select(async task =>
                 {
